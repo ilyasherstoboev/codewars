@@ -4,9 +4,12 @@
   "description": "Решение задач из сайта https://www.codewars.com/",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.6"
   }
 }
