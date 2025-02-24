@@ -4,7 +4,7 @@ export default class VigenèreCipher {
     this.key = key.split('').map(item => alphabet.indexOf(item));
   }
 
-  transform(text, direction) {
+  #transform(text, direction) {
     return text.split('').map((char, i) => {
       const charIndex = this.alphabet.indexOf(char);
 
@@ -17,10 +17,10 @@ export default class VigenèreCipher {
   }
 
   encode(text) { 
-    return this.transform(text, 1);
+    return this.#transform(text, 1);
   }
 
   decode(text) { 
-    return this.transform(text, -1); 
+    return this.#transform(text, -1); 
   }
 }
