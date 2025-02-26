@@ -37,7 +37,7 @@ function isEmptyRow(row) {
 }
 
 function content(payload) {
-  const cells = preparePayload(payload).map(row => [...row]); // Глубокая копия
+  const cells = preparePayload(payload).map(row => [...row]);
   const newCells = Array.from({ length: cells.length }, () => []);
 
   for (let i = 0; i < cells.length; i++) {
