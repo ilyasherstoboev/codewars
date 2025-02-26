@@ -1,10 +1,10 @@
 export function comp(array1, array2){
-  if (!array1 || !array2 || cloneArr2.length !== cloneArr1.length) return false
+  if (!array1 || !array2) return false
 
   const cloneArr2 = [...eval(array2)].sort()
   const cloneArr1 = array1.map(item => Math.pow(item, 2)).sort();
 
-  return cloneArr1.every((val, index) => cloneArr2[index] === val)
+  return cloneArr2.length === cloneArr1.length && cloneArr1.every((val, index) => cloneArr2[index] === val)
 }
 
 let a1 = [121, 144, 19, 161, 19, 144, 19, 11];
