@@ -1,13 +1,8 @@
-const ignoreWords = ["the","of","in","from","by","with","and", "or", "for", "to", "at", "a"];
-
 export function generateBC(url, separator) {
   let urlArr = url.split('://');
-  urlArr = urlArr.length > 1 ? urlArr[1] : urlArr[0];
-  urlArr = urlArr.split('/')
+  urlArr = urlArr[urlArr.length - 1].split('/')
 
-  const prepare = makeLinks(urlArr);
-
-  return prepare.join(separator);
+  return makeLinks(urlArr).join(separator);
 }
 
 const makeLinks = (arr) => {
@@ -15,53 +10,38 @@ const makeLinks = (arr) => {
 
   return newArr.map((item, index) => {
     if(newArr.length === 1) {
-      return makeSpan(prepareSpanText('HOME'))
+      return makeSpan(prepareText('HOME'))
     }
     
     if (index === 0) {
       return makeLink('/', 'HOME')
     }
+
     if (index === newArr.length - 1) {
-      return makeSpan(prepareSpanText(item))
+      return makeSpan(prepareText(item))
     }
 
-    return makeLink(prepareLink(newArr, index), `${prepareHrefText(item)}`)
+    return makeLink(prepareLink(newArr, index), `${prepareText(item)}`)
   });
 }
 
 const prepareLink = (arr, index) => {
-  const res = arr.slice(1, index + 1).join('/');
-
-  return `/${res}/`;
+  return `/${arr.slice(1, index + 1).join('/')}/`;
 }
 
-const prepareHrefText = (text) => {
-  const res = text.length > 30
-   ? text.split('-').filter(item => !ignoreWords.includes(item)).map((item) => item[0]).join('')
-   : text.replace(/[^a-zA-Z]/g, ' ').toUpperCase();
-
-  return res.toUpperCase();
-}
-
-const prepareSpanText = (text) => {
-  let textContent = text.split('.')[0];
-  textContent = textContent.split('?')[0]
-  textContent = textContent.split('#')[0]
-
+const prepareText = (text) => {
+  const ignoreWords = ["the","of","in","from","by","with","and", "or", "for", "to", "at", "a"];
+  let textContent = text.split(/[.?#]/)[0];
 
   const res = textContent.length > 30
   ? textContent.split('-').filter(item => !ignoreWords.includes(item)).map((item) => item[0]).join('')
   : textContent.replace(/[^a-zA-Z]/g, ' ');
 
-  console.log(res);
-
   return res.toUpperCase()
 }
 
 const makeSpan = (text) => {
-  return `<span class="active">${text}</span>`
+  return `<span class="active">${text}</span>`;
 }
 
-const makeLink = (href, text) => {
-  return `<a href="${href}">${text}</a>`
-}
+const makeLink = (href, text) => `<a href="${href}">${text}</a>`
